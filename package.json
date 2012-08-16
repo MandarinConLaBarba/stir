@@ -4,6 +4,7 @@
     "bin" : "./bin/stir",
     "dependencies":
     {
+        "commander" : "1.0.1",
         "underscore" : "*"
     },
     "devDependencies":
