@@ -4,4 +4,5 @@
 - Add a bin property in package json that points to the generator
 - Put something in index.js
 - Write some tests
+- Add tdd style template option
 - Add usage/examples to README

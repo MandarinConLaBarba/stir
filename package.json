@@ -1,10 +1,7 @@
 {
     "name":"stir",
     "version":"0.0.1",
-    "publishConfig":
-    {
-        "registry":"http://ec2-107-22-75-105.compute-1.amazonaws.com:5984/registry/_design/app/_rewrite"
-    },
+    "bin" : "./cli.js",
     "dependencies":
     {
         "underscore" : "*"
