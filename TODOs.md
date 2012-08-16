@@ -1,8 +1,6 @@
 ### TODOs
 
-- Make the generator not care what path it's called from
-- Add a bin property in package json that points to the generator
-- Put something in index.js
+- Convert to use uglify module to parse js instead of using require()
 - Write some tests
 - Add tdd style template option
 - Add usage/examples to README
