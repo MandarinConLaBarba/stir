@@ -1,5 +1,7 @@
+#!/usr/bin/env node
+
 var _ = require('underscore'),
-    generator = require('./lib/generator');
+    generator = require('../lib/generator');
 
 var args = _.chain(process.argv.slice(2))
         .filter(function(arg) {

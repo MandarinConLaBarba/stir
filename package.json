@@ -1,7 +1,7 @@
 {
     "name":"stir",
     "version":"0.0.1",
-    "bin" : "./cli.js",
+    "bin" : "./bin/stir",
     "dependencies":
     {
         "underscore" : "*"
