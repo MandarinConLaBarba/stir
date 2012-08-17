@@ -29,7 +29,7 @@ $ ls -la test/output/
 ```
 var should = require('should');
 
-describe("/Users/mandarin/code/stir/test/sample/dir1/module1.js", function() {
+describe("stir/test/sample/dir1/module1.js", function() {
 
 
         describe("testFunction", function() {
