@@ -5,18 +5,19 @@ A simple node.js test-stub generation utility.
 ###Usage
 
 ```
- ------------------------------------------
- Stir it up...little darlin', stir it up...
- ------------------------------------------
- Usage:
-    stir <sourceDir> <outputDir> [--force]
- Options:
-  --force   Pass true if you want to overwrite files in the output dir. Careful..
+   Usage: stir <sourceDir> <outputDir> [options]
+
+   Options:
+
+     -h, --help                     output usage information
+     -V, --version                  output the version number
+     -f, --force                    force overwrite of files in the output directory
+     -t, --template <templatePath>  provide your own test stub template
 ```
 
 ###Example
 
-#### Run stir against the samples
+#### Run stir against the samples:
 ```
 $ stir test/sample/ test/output/
 ```
@@ -25,7 +26,8 @@ $ stir test/sample/ test/output/
 ```
 $ ls -la test/output/
 ```
-#### Sample generated stub
+
+#### Sample generated stub:
 ```
 var should = require('should');
 
@@ -37,7 +39,7 @@ describe("stir/test/sample/dir1/module1.js", function() {
             it("should do something..", function(done){
 
                 //TODO: make this pass..
-                should.exist(null);
+                should.exist(undefined);
 
             });
 
@@ -49,7 +51,7 @@ describe("stir/test/sample/dir1/module1.js", function() {
             it("should do something..", function(done){
 
                 //TODO: make this pass..
-                should.exist(null);
+                should.exist(undefined);
 
             });
 
