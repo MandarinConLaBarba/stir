@@ -1,37 +1,3 @@
 #!/usr/bin/env node
-var _ = require('underscore'),
-    generator = require('../lib/generator');
 
-var args = process.argv.slice(2);
-
-var printUsage = function() {
-
-    console.log("------------------------------------------");
-    console.log("Stir it up...little darlin', stir it up...");
-    console.log("------------------------------------------");
-    console.log("Usage: ");
-    console.log("   stir <sourceDir> <outputDir> [--force]");
-
-    console.log("Options: ");
-    console.log(" --force   Pass true if you want to overwrite files in the output dir. Careful..");
-
-};
-
-if (args.length < 2) {
-    printUsage();
-} else {
-
-    var options = {
-        source : args[0],
-        output : args[1],
-        overwrite : args[2] === "--force" ? true : false
-    };
-
-    generator.on('done', function() {
-        console.log("Done...");
-        process.exit();
-    });
-
-    generator.generate(options);
-
-}
+require('./stir.js');
