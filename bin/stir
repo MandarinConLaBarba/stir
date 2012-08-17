@@ -13,7 +13,7 @@ var printUsage = function() {
     console.log("   stir <sourceDir> <outputDir> [--force]");
 
     console.log("Options: ");
-    console.log(" --force   Pass true if you want to delete the target dir. Careful..");
+    console.log(" --force   Pass true if you want to overwrite files in the output dir. Careful..");
 
 };
 
