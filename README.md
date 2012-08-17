@@ -16,7 +16,7 @@ A simple node.js test-stub generation utility.
 
 ###Example
 
-#### Install the package or clone the repo
+#### Run stir against the samples
 ```
 $ stir test/sample/ test/output/
 ```
