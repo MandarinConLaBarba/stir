@@ -8,7 +8,7 @@ describe("<%= name %>", function() {
             it("should do something..", function(done){
 
                 //TODO: make this pass..
-                should.exist(null);
+                should.exist(undefined);
 
             });
 
