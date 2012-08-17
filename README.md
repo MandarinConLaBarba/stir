@@ -61,4 +61,22 @@ describe("stir/test/sample/dir1/module1.js", function() {
 });
 ```
 
+#### Run the test stub (it will fail):
+
+```
+$ mocha test/output/dir1/module1.js
+
+  ..
+
+  ✖ 2 of 2 tests failed:
+
+  1) stir/test/sample/dir1/module1.js testFunction should do something..:
+     AssertionError: expected undefined to exist
+
+
+  2) stir/test/sample/dir1/module1.js testFunction2 should do something..:
+     AssertionError: expected undefined to exist
+
+```
+
 
