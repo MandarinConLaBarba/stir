@@ -33,6 +33,8 @@ describe("generator.js", function() {
         
         describe("writeTest", function() {
 
+            var fsWriteFileStub;
+
 
             beforeEach(function() {
 
@@ -40,15 +42,16 @@ describe("generator.js", function() {
                     return true;
                 });
 
-                //TODO: set up spy on fs.writeFileSync
+                fsWriteFileStub = sinon.stub(fs, "writeFileSync");
 
             });
 
             afterEach(function() {
                 path.existsSync.restore();
-            })
+                fs.writeFileSync.restore();
+            });
 
-            it("should not write the test if it already exists..", function(done){
+            it("should not write the test if it already exists..", function(){
 
                 generator.overwrite = false;
 
@@ -63,9 +66,7 @@ describe("generator.js", function() {
 
                 generator.writeTest(fakeTest);
 
-                done();
-
-                //expect  fs.writeFileSync not to have been called
+                fsWriteFileStub.called.should.be.false;
 
             });
 
