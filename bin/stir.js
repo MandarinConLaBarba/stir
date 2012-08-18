@@ -9,8 +9,10 @@ program
     .version(require('../package.json').version)
     .description("A test-stub generation tool for node.js")
     .usage('<sourceDir> <outputDir> [options]')
+    .option('-d, --dry', 'do not actually write to output directory')
     .option('-f, --force', 'force overwrite of files in the output directory')
     .option('-t, --template <templatePath>', 'provide your own test stub template')
+    .option('-n, --max <maxStubs>', 'maximum number of stubs to generate', parseInt)
     .parse(process.argv);
 
 if (program.args.length !== 2) {
@@ -21,7 +23,9 @@ if (program.args.length !== 2) {
         source : program.args[0],
         output : program.args[1],
         overwrite : program.force === true ? true : false,
-        template : program.template
+        template : program.template,
+        dry : program.dry,
+        max : program.max
     };
 
     generator.on('done', function() {
