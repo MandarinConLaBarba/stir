@@ -67,10 +67,12 @@ describe("generator.js", function() {
 
             beforeEach(function() {
                 initStub = sinon.stub(generator, "init");
+                sinon.stub(fs, "mkdirSync");
             });
 
             afterEach(function() {
                 generator.init.restore();
+                fs.mkdirSync.restore();
             });
 
             it("should fail if init yields errors", function(){
@@ -176,10 +178,69 @@ describe("generator.js", function() {
         
         describe("getMethodList", function() {
 
-            it("should do something..", function(done){
+            var readFileSyncStub;
 
-                //TODO: make this pass..
-                should.exist(undefined);
+            beforeEach(function() {
+                readFileSyncStub = sinon.stub(fs, 'readFileSync')
+            });
+
+            afterEach(function() {
+                fs.readFileSync.restore();
+            });
+
+            it("should return one method if there is one method in exports", function(){
+
+                var fakeModule = "exports.testFunction123 = function() {};";
+
+                fs.readFileSync.returns(fakeModule);
+
+                var functions = generator.getMethodList("some/Fake/Path");
+
+                should.equal(1, functions.length);
+                functions[0].should.equal("testFunction123");
+
+            });
+
+            it("should return all the methods of an object assigned to module.exports", function() {
+                var fakeModule = "var someVariable = {};";
+                fakeModule += "\n";
+                fakeModule += " someVariable.func1 = function() {};";
+                fakeModule += "\n";
+                fakeModule += " someVariable.func2 = function() {};";
+                fakeModule += "\n";
+                fakeModule += "module.exports = someVariable";
+
+                fs.readFileSync.returns(fakeModule);
+
+                var functions = generator.getMethodList("some/Fake/Path");
+
+                should.equal(2, functions.length);
+
+            });
+
+            it("should return all methods of an object variable assigned to module.exports", function() {
+                var fakeModule = "var someVariable = { func1 : function() {}, func2 : function() {}};";
+                fakeModule += "\n";
+                fakeModule += "\n";
+                fakeModule += "module.exports = someVariable";
+
+                fs.readFileSync.returns(fakeModule);
+
+                var functions = generator.getMethodList("some/Fake/Path");
+
+                should.equal(2, functions.length);
+
+            });
+
+            it("should return all the methods of an object on the right side of a module.exports assignment", function(){
+
+                var fakeModule = "module.exports = {testFunction1 : function(){}, testFunction2 : function(){}}";
+
+                fs.readFileSync.returns(fakeModule);
+
+                var functions = generator.getMethodList("some/Fake/Path");
+
+                should.equal(2, functions.length);
 
             });
 
@@ -188,10 +249,74 @@ describe("generator.js", function() {
         
         describe("compileFileList", function() {
 
-            it("should do something..", function(done){
+            var readDirSyncStub,
+                lstatSyncStub;
+            beforeEach(function(){
+                readDirSyncStub = sinon.stub(fs, "readdirSync");
+                lstatSyncStub = sinon.stub(fs, "lstatSync");
+                generator.fileList = [];
+            });
+            afterEach(function(){
+                fs.readdirSync.restore();
+                fs.lstatSync.restore();
+            });
 
-                //TODO: make this pass..
-                should.exist(undefined);
+            it("should return one file if one file in directory", function(){
+
+                readDirSyncStub.returns(["blah1.js"]);
+
+                generator.source = "blah";
+                lstatSyncStub.withArgs("blah/blah1.js").returns({
+                    isDirectory : function() {return false;},
+                    isFile : function() {return true;}
+                });
+
+
+                generator.compileFileList();
+
+                should.equal(generator.fileList.length, 1);
+
+            });
+
+            it("should exclude files without js extension", function(){
+
+                readDirSyncStub.returns(["blah1.js", "blah1.sql"]);
+
+                generator.source = "blah";
+                lstatSyncStub.returns({
+                    isDirectory : function() {return false;},
+                    isFile : function() {return true;}
+                });
+
+                generator.compileFileList();
+
+                should.equal(generator.fileList.length, 1);
+
+            });
+
+
+            it("should aggregate files in subdirectories", function(){
+
+                generator.source = "blah";
+
+                readDirSyncStub.withArgs("blah/").returns(["blah1.js", "someDir"]);
+                readDirSyncStub.withArgs("blah/someDir/").returns(["blah2.js"]);
+
+                var file = {
+                    isDirectory : function() {return false;},
+                    isFile : function() {return true;}
+                }, dir = {
+                    isDirectory : function() {return true;},
+                    isFile : function() {return false;}
+                };
+
+                lstatSyncStub.withArgs("blah/blah1.js").returns(file);
+                lstatSyncStub.withArgs("blah/someDir").returns(dir);
+                lstatSyncStub.withArgs("blah/someDir/blah2.js").returns(file);
+
+                generator.compileFileList();
+
+                should.equal(generator.fileList.length, 2);
 
             });
 
