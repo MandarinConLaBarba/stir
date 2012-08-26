@@ -38,6 +38,17 @@ describe("parser.js", function() {
 
         });
 
+        it("should work with module.exports = function()", function() {
+            var fakeModule = "module.exports = function() {}";
+
+            fs.readFileSync.returns(fakeModule);
+
+            var functions = parser.getMethodList("some/Fake/Path");
+
+            should.equal(1, functions.length);
+
+        });
+
         it("should return all the methods of an object assigned to module.exports", function() {
             var fakeModule = "var someVariable = {};";
             fakeModule += "\n";
