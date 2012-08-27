@@ -1,7 +1,7 @@
-var <%= moduleName %> = require('<%= relativePathToModule %>'),
-should = require('should');
+var targetModule = require('<%= relativeModulePath %>'),
+    should = require('should');
 
-describe("<%= specName %>", function() {
+describe("<%= spec %>", function() {
     <% for (var index = 0; index < methods.length; index++){ %>
         <% var method = methods[index]; %>
         describe("<%= method %>", function() {
