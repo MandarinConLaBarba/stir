@@ -3,23 +3,18 @@ var targetModule = require('<%= relativeModulePath %>'),
 
 describe("<%= spec %>", function() {
     <% for (var index = 0; index < describes.length; index++){ %>
-        <% var describe = describes[index]; %>
-
-        <% if (typeof describe === "object") { %>
+        <% var describe = describes[index]; %><%
+        if (typeof describe === "object") { %>
             describe("<%= describe.title %>", function() {
-
-            <% for (var index = 0; index < describe.specs.length; index++){ %>
-                <% var spec = describe.specs[index]; %>
+            <% for (var index2 = 0; index2 < describe.specs.length; index2++){ %>
+                <% var spec = describe.specs[index2]; %>
                     it("<%= spec %>", function() {
 
                     });
             <% } %>
-
-            });
-
-        <% } else { %>
+            });<%
+        } else { %>
             describe("<%= describe %>", function() {
-
 
                 it("should do something..", function(){
 
@@ -28,9 +23,7 @@ describe("<%= spec %>", function() {
 
                 });
             });
-
          <% } %>
-
     <% } %>
 
 });

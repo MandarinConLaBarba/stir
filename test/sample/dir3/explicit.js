@@ -1,41 +1,17 @@
-var targetModule = require(''),
-    should = require('should');
+module.exports = {
 
-describe("test/sample/dir3/explicit", function() {
-    
-        
-
-        
-            describe("function7", function() {
-
-
-                it("should do something..", function(){
-
-                    //TODO: make this pass..
-                    should.exist(undefined);
-
-                });
-            });
-
-         
-
-    
-        
-
-        
-            describe("function8", function() {
+    /**
+     * @describe function8
+     * @it should do some neat things
+     * @it should do some other neat things
+     */
+    function8 : function() {},
 
 
-                it("should do something..", function(){
-
-                    //TODO: make this pass..
-                    should.exist(undefined);
-
-                });
-            });
-
-         
-
-    
-
-});
+    /**
+     * @describe function9
+     * @it should do some neat things differently
+     * @it should do some other neat things differently
+     */
+    function9 : function() {}
+};
